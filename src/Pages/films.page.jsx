@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import App from "../App";
+import filterFilmsByDirector from "../helpers/film.helpers";
 
 function FilmsPage() {
   // 3. Declare a piece of state meant to hold the list of movie objects
@@ -28,8 +29,18 @@ function FilmsPage() {
       <h1 color="red">
         <strong>Studio Ghibli List</strong>
       </h1>
+      
+      <form>Form placeholder
+        <div className="form-group">
+          <label htmlFor="searchDirector"></label>
+          <select name="selectDirector" value={searchDirector} onChange={(e) => setSearchDirector(e.target.value)}>
+            <option value="">All</option> </select>
 
-      {/* 4. Inside of the ul, escape to Javascript - `{}`
+        </div>
+      </form>
+      
+      
+      {/* /* 4. Inside of the ul, escape to Javascript - `{}`
       5. Map over the state
       variable
       6. Return an li element with the object's title
@@ -53,7 +64,7 @@ function FilmsPage() {
         )}
       </ul>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
