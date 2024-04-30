@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
-import Homepage from "./Pages/home.page";
-import FilmsPage from "./Pages/films.page";
 
-
-
-function App() {
+function FilmsPage() {
   // 3. Declare a piece of state meant to hold the list of movie objects
   const [movieList, setMovieList] = useState([]);
 
