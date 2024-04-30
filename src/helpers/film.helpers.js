@@ -6,7 +6,7 @@ export default function filterFilmsByDirector() {
 }
 
 
-
+// receive `list` (array) and `prop` (string) parameters, and return a cumulative list of items including every *unique* value that exists in the list at the specified property.
 export default function getListOf() {
   return (
     <div>Get List of Directors</div>

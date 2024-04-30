@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import App from "../App";
+import './films.page.css'
 import filterFilmsByDirector from "../helpers/film.helpers";
+import getListOf from "../helpers/film.helpers";
 
 function FilmsPage() {
   // 3. Declare a piece of state meant to hold the list of movie objects
@@ -21,6 +22,13 @@ function FilmsPage() {
       .catch((error) => console.log(error));
   }, []);
 
+
+// Get a list of unique directors
+const directors = getListOf(list, "director");
+
+// Filter films by selected director
+const filmsByDirector = filterFilmsByDirector(list, searchDirector);
+
   return (
     <div className="App">
       {/* ## Layout the elements 
@@ -34,7 +42,11 @@ function FilmsPage() {
         <div className="form-group">
           <label htmlFor="searchDirector"></label>
           <select name="selectDirector" value={searchDirector} onChange={(e) => setSearchDirector(e.target.value)}>
-            <option value="">All</option> </select>
+            <option value="">All</option>
+            {directors.map((director, index) => (
+              <option key={index} value={director}>Director</option>
+            ))}
+          </select>
 
         </div>
       </form>
@@ -46,7 +58,7 @@ function FilmsPage() {
       6. Return an li element with the object's title
       7. Don't forget to give the li a key property */}
       <ul id="movie-UlList">
-        {movieList.map(
+        {filmsByDirector.map(
           (
             movie //{escapes}
           ) => (
@@ -67,4 +79,4 @@ function FilmsPage() {
   )
 }
 
-export default App
+export default FilmsPage

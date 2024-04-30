@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import "./App.css";
 import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
-import Homepage from "./Pages/home.page";
-import FilmsPage from "./Pages/films.page";
-
+import { Homepage, FilmsPage } from "./Pages/index.js";
+import './App.css'
 
 
 function App() {
-  return
+  return (
   <BrowserRouter>
     <nav>
       <ul>
@@ -21,10 +18,11 @@ function App() {
       </ul>
     </nav>
       <Routes>
-        <Route path="/"></Route>
-        <Route path="/films"></Route>
+        <Route path="/" element={<Homepage/>}></Route>
+        <Route path="/films" element={<FilmsPage/>}></Route>
       </Routes>
-    </BrowserRouter>
+  </BrowserRouter>
+  )
 }
 
 export default App;
