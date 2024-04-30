@@ -4,6 +4,7 @@ import "./App.css";
 function FilmsPage() {
   // 3. Declare a piece of state meant to hold the list of movie objects
   const [movieList, setMovieList] = useState([]);
+  const [searchDirector, setSearchDirector] = useState("")
 
   // 8. invoke`useEffect()`;
   useEffect(() => {
