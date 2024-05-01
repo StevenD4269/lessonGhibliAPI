@@ -7,7 +7,11 @@
 
 // 7. get a list(array) and a string (directors) then return a filtered list of films where only the films by that director are included
 export function filterFilmsByDirector(list, director) {
-  return list.filter((filteredDirectors) => { return (filteredDirectors.director === director)});
+  if (director == "") {
+    return list;
+  }
+  
+  return list.filter((filteredDirectors) => { return (filteredDirectors.director === director) });
 }
 
 

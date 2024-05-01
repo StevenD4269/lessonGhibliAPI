@@ -4,8 +4,9 @@ import { filterFilmsByDirector, getListOf } from "../helpers/film.helpers";
 
 export function FilmsPage() {
   //1. Declare another piece of state, `searchDirector` and `setSearchDirector`, that will be destructured from the return of `useState("")`
+  const [films, setFilms] = useState([]);
   const [searchDirector, setSearchDirector] = useState("")
-  const [movieList, setMovieList] = useState([]);
+
 
   // invoke`useEffect()`;
   useEffect(() => {
@@ -16,13 +17,14 @@ export function FilmsPage() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setMovieList(data);
+        setFilms(data);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  const filmsByDirector = filterFilmsByDirector(movieList, searchDirector);
-  const directors = getListOf(movieList, "director");
+  //derived state
+  const filmsByDirector = filterFilmsByDirector(films, searchDirector);
+  const directors = getListOf(films, "director");
 
 
   return (
@@ -44,6 +46,8 @@ export function FilmsPage() {
           {/* 6. add a single `option` to the `select` (for now) with the `value` set to `""` and text content displaying `"All" */}
             <option
               value="">All</option>
+            
+            {/* this is the dropdown director options */}
             {directors.map((director, index) => (
               <option key={index} value={director}>{director}</option>
             ))}
@@ -60,9 +64,7 @@ export function FilmsPage() {
       7. Don't forget to give the li a key property */}
       <ul id="movie-UlList">
         {filmsByDirector.map(
-          (
-            movie //{escapes}
-          ) => (
+          (movie) => (
             <li key={movie.id}>
               <div className="movie-Left">
                 <h2>{movie.title}</h2>
@@ -70,7 +72,7 @@ export function FilmsPage() {
               </div>
               <div className="movie_right">
                 <p>{movie.description}</p>
-                <p>{movie.running_time} - m running time</p>
+                <p>{movie.running_time} - running time</p>
               </div>
             </li>
           )
