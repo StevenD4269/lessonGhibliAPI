@@ -3,9 +3,8 @@ import './films.page.css'
 import filterFilmsByDirector from "../helpers/film.helpers";
 import getListOf from "../helpers/film.helpers";
 
-function FilmsPage() {
+export function FilmsPage() {
   // 3. Declare a piece of state meant to hold the list of movie objects
-  const [movieList, setMovieList] = useState([]);
   const [searchDirector, setSearchDirector] = useState("")
 
   // 8. invoke`useEffect()`;
@@ -22,12 +21,9 @@ function FilmsPage() {
       .catch((error) => console.log(error));
   }, []);
 
+  const filmsByDirector = filterFilmsByDirector(films, searchDirector);
+  const directors = getListOf(films, "director");
 
-// Get a list of unique directors
-const directors = getListOf(list, "director");
-
-// Filter films by selected director
-const filmsByDirector = filterFilmsByDirector(list, searchDirector);
 
   return (
     <div className="App">
