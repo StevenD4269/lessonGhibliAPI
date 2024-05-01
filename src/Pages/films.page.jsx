@@ -4,15 +4,15 @@ import filterFilmsByDirector from "../helpers/film.helpers";
 import getListOf from "../helpers/film.helpers";
 
 export function FilmsPage() {
-  // 3. Declare a piece of state meant to hold the list of movie objects
+  //1. Declare another piece of state, `searchDirector` and `setSearchDirector`, that will be destructured from the return of `useState("")`
   const [searchDirector, setSearchDirector] = useState("")
 
-  // 8. invoke`useEffect()`;
+  // invoke`useEffect()`;
   useEffect(() => {
-    fetch("https://studioghibliapi-d6fc8.web.app/films") // 9. Inside the useEffect callback function, invoke the `fetch()`
-      // 10. Call the `.then(response)` method
-      // 11. Call the `.then(data)` method a second time
-      // 12. Call the `.catch(error)` method
+    fetch("https://studioghibliapi-d6fc8.web.app/films") //  Inside the useEffect callback function, invoke the `fetch()`
+      // Call the `.then(response)` method
+      // Call the `.then(data)` method a second time
+      // Call the `.catch(error)` method
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -27,17 +27,18 @@ export function FilmsPage() {
 
   return (
     <div className="App">
-      {/* ## Layout the elements 
-        1. Create an h1 with a title 
-        2. Create a ul */}
       <h1 color="red">
         <strong>Studio Ghibli List</strong>
       </h1>
-      
+      {/* 2. Add a `form` to the return statement beneath the existing `h1` */}
       <form>Form placeholder
+        {/* 3. Add a `div` with class name `form-group` inside of the `form` */}
         <div className="form-group">
+        {/* 4. Add a `label` and `select` inside of the `div.form-group` */}
           <label htmlFor="searchDirector"></label>
+          {/* 5. set the `select`'s `value` prop to the `searchDirector` state. set the `select`'s `onChange` prop to a function that calls `setSearchDirector` and updates `searchDirector` with the chosen `option` value */}
           <select name="selectDirector" value={searchDirector} onChange={(e) => setSearchDirector(e.target.value)}>
+          {/* 6. add a single `option` to the `select` (for now) with the `value` set to `""` and text content displaying `"All" */}
             <option value="">All</option>
             {directors.map((director, index) => (
               <option key={index} value={director}>Director</option>
