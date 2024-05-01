@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import './films.page.css'
-import filterFilmsByDirector from "../helpers/film.helpers";
-import getListOf from "../helpers/film.helpers";
+import { filterFilmsByDirector, getListOf } from "../helpers/film.helpers";
 
 export function FilmsPage() {
   //1. Declare another piece of state, `searchDirector` and `setSearchDirector`, that will be destructured from the return of `useState("")`
   const [searchDirector, setSearchDirector] = useState("")
+  const [movieList, setMovieList] = useState([]);
 
   // invoke`useEffect()`;
   useEffect(() => {
@@ -21,8 +21,8 @@ export function FilmsPage() {
       .catch((error) => console.log(error));
   }, []);
 
-  const filmsByDirector = filterFilmsByDirector(films, searchDirector);
-  const directors = getListOf(films, "director");
+  const filmsByDirector = filterFilmsByDirector(movieList, searchDirector);
+  const directors = getListOf(movieList, "director");
 
 
   return (
@@ -31,17 +31,21 @@ export function FilmsPage() {
         <strong>Studio Ghibli List</strong>
       </h1>
       {/* 2. Add a `form` to the return statement beneath the existing `h1` */}
-      <form>Form placeholder
+      <form>
         {/* 3. Add a `div` with class name `form-group` inside of the `form` */}
         <div className="form-group">
         {/* 4. Add a `label` and `select` inside of the `div.form-group` */}
-          <label htmlFor="searchDirector"></label>
+          <label htmlFor="directorSelect">Filter Movies by Director</label>
           {/* 5. set the `select`'s `value` prop to the `searchDirector` state. set the `select`'s `onChange` prop to a function that calls `setSearchDirector` and updates `searchDirector` with the chosen `option` value */}
-          <select name="selectDirector" value={searchDirector} onChange={(e) => setSearchDirector(e.target.value)}>
+          <select
+            name="selectDirector" id="directorSelect"
+            value={searchDirector}
+            onChange={(e) => {setSearchDirector(e.target.value)}}>
           {/* 6. add a single `option` to the `select` (for now) with the `value` set to `""` and text content displaying `"All" */}
-            <option value="">All</option>
+            <option
+              value="">All</option>
             {directors.map((director, index) => (
-              <option key={index} value={director}>Director</option>
+              <option key={index} value={director}>{director}</option>
             ))}
           </select>
 
