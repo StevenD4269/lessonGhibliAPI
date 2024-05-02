@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import './films.page.css'
+import "./films.page.css";
 import { filterFilmsByDirector, getListOf } from "../helpers/film.helpers";
+import { Link } from "react-router-dom";
 
 export function FilmsPage() {
   //1. Declare another piece of state, `searchDirector` and `setSearchDirector`, that will be destructured from the return of `useState("")`
   const [films, setFilms] = useState([]);
-  const [searchDirector, setSearchDirector] = useState("")
-
+  const [searchDirector, setSearchDirector] = useState("");
 
   // invoke`useEffect()`;
   useEffect(() => {
@@ -26,7 +26,6 @@ export function FilmsPage() {
   const filmsByDirector = filterFilmsByDirector(films, searchDirector);
   const directors = getListOf(films, "director");
 
-
   return (
     <div className="App">
       <h1 color="red">
@@ -36,50 +35,53 @@ export function FilmsPage() {
       <form>
         {/* 3. Add a `div` with class name `form-group` inside of the `form` */}
         <div className="form-group">
-        {/* 4. Add a `label` and `select` inside of the `div.form-group` */}
+          {/* 4. Add a `label` and `select` inside of the `div.form-group` */}
           <label htmlFor="directorSelect">Filter Movies by Director</label>
           {/* 5. set the `select`'s `value` prop to the `searchDirector` state. set the `select`'s `onChange` prop to a function that calls `setSearchDirector` and updates `searchDirector` with the chosen `option` value */}
           <select
-            name="selectDirector" id="directorSelect"
+            name="selectDirector"
+            id="directorSelect"
             value={searchDirector}
-            onChange={(e) => {setSearchDirector(e.target.value)}}>
-          {/* 6. add a single `option` to the `select` (for now) with the `value` set to `""` and text content displaying `"All" */}
-            <option
-              value="">All</option>
-            
+            onChange={(e) => {
+              setSearchDirector(e.target.value);
+            }}
+          >
+            {/* 6. add a single `option` to the `select` (for now) with the `value` set to `""` and text content displaying `"All" */}
+            <option value="">All</option>
+
             {/* this is the dropdown director options */}
             {directors.map((director, index) => (
-              <option key={index} value={director}>{director}</option>
+              <option key={index} value={director}>
+                {director}
+              </option>
             ))}
+            
           </select>
-
         </div>
       </form>
-      
-      
+
       {/* /* 4. Inside of the ul, escape to Javascript - `{}`
       5. Map over the state
       variable
       6. Return an li element with the object's title
       7. Don't forget to give the li a key property */}
       <ul id="movie-UlList">
-        {filmsByDirector.map(
-          (movie) => (
-            <li key={movie.id}>
-              <div className="movie-Left">
-                <h2>{movie.title}</h2>
-                <img src={movie.image} alt={movie.title} />
-              </div>
-              <div className="movie_right">
-                <p>{movie.description}</p>
-                <p>{movie.running_time} - running time</p>
-              </div>
-            </li>
-          )
-        )}
+        {filmsByDirector.map((movie) => (
+          <li key={movie.id}>
+            <Link to={`/film/${films.id}`}> {item.title}</Link>
+            <div className="movie-Left">
+              <h2>{movie.title}</h2>
+              <img src={movie.image} alt={movie.title} />
+            </div>
+            <div className="movie_right">
+              <p>{movie.description}</p>
+              <p>{movie.running_time} - running time</p>
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
-  )
+  );
 }
 
-export default FilmsPage
+export default FilmsPage;
